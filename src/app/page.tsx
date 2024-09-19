@@ -1,92 +1,113 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Home() {
-  const [initialAmount, setInitialAmount] = React.useState(5000);
-  const [contribution, setContribution] = React.useState(150);
-  const [period, setPeriod] = React.useState("Monthly");
-  const [rateOfReturn, setRateOfReturn] = React.useState(4);
-  const [yearsOfGrowth, setYearsOfGrowth] = React.useState(10);
+  const [form, setForm] = useState({
+    initialAmount: 5000,
+    contribution: 150,
+    period: "Monthly",
+    rateOfReturn: 4,
+    yearsOfGrowth: 10,
+  });
 
-  const handleInitialAmountChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setInitialAmount(Number(e.target.value));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleContributionChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setContribution(Number(e.target.value));
-
-  const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setPeriod(e.target.value);
-
-  const handleRateOfReturnChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setRateOfReturn(Number(e.target.value));
-
-  const handleYearsOfGrowthChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setYearsOfGrowth(Number(e.target.value));
+  const handlePeriodChange = (period: "Monthly" | "Annually") => {
+    setForm({
+      ...form,
+      period,
+    });
+  };
 
   return (
     <div className="container mx-auto flex gap-4">
       <div className="flex flex-col gap-4 p-4  w-[30%]">
         <label className="flex flex-col">
+          Compounding frequency
+          <div className="border p-2 w-full flex gap-2">
+            <button
+              className={`py-1 px-2 rounded ${
+                form.period === "Monthly" ? "bg-zinc-300" : ""
+              }`}
+              onClick={() => handlePeriodChange("Monthly")}
+            >
+              Monthly
+            </button>
+            <button
+              className={`py-1 px-2 rounded ${
+                form.period === "Annually" ? "bg-zinc-300" : ""
+              }`}
+              onClick={() => handlePeriodChange("Annually")}
+            >
+              Annually
+            </button>
+          </div>
+        </label>
+
+        <label className="flex flex-col">
           Initial Amount
-          <input
-            type="number"
-            value={initialAmount}
-            onChange={handleInitialAmountChange}
-            step={100}
-            className="border p-2 w-full"
-            style={{ textAlign: "center" }}
-          />
+          <div className="relative">
+            <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-zinc-400">
+              $
+            </div>
+            <input
+              name="initialAmount"
+              type="number"
+              value={form.initialAmount}
+              onChange={handleChange}
+              step={100}
+              className="border p-2 w-full pl-6"
+            />
+          </div>
         </label>
         <label className="flex flex-col">
           Contributions
-          <input
-            type="number"
-            value={contribution}
-            onChange={handleContributionChange}
-            step={50}
-            className="border p-2 w-full"
-            style={{ textAlign: "center" }}
-          />
+          <div className="relative">
+            <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-zinc-400">
+              $
+            </div>
+            <input
+              name="contribution"
+              type="number"
+              value={form.contribution}
+              onChange={handleChange}
+              step={50}
+              className="border p-2 w-full pl-6"
+            />
+          </div>
         </label>
-        <div className="flex gap-2 p-2">
-          <button
-            className={`py-1 px-2 rounded ${
-              period === "Monthly" ? "bg-zinc-300" : ""
-            }`}
-            onClick={() => setPeriod("Monthly")}
-          >
-            Monthly
-          </button>
-          <button
-            className={`py-1 px-2 rounded ${
-              period === "Annually" ? "bg-zinc-300" : ""
-            }`}
-            onClick={() => setPeriod("Annually")}
-          >
-            Annually
-          </button>
-        </div>
+
         <label className="flex flex-col">
           Rate of Return
-          <input
-            type="number"
-            value={rateOfReturn}
-            onChange={handleRateOfReturnChange}
-            step={0.25}
-            className="border p-2 w-full text-center"
-            style={{ textAlign: "center" }}
-          />
+          <div className="relative">
+            <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-zinc-400">
+              %
+            </div>
+            <input
+              name="rateOfReturn"
+              type="number"
+              value={form.rateOfReturn}
+              onChange={handleChange}
+              step={0.25}
+              className="border p-2 w-full pl-6"
+            />
+          </div>
         </label>
         <label className="flex flex-col">
           Years of Growth
           <input
+            name="yearsOfGrowth"
             type="number"
-            value={yearsOfGrowth}
-            onChange={handleYearsOfGrowthChange}
-            className="border p-2 w-full"
-            style={{ textAlign: "center" }}
+            value={form.yearsOfGrowth}
+            onChange={handleChange}
+              className="border p-2 w-full pl-6"
           />
         </label>
       </div>
