@@ -37,7 +37,7 @@ export default function Home() {
   const memoizedForm = useMemo(() => form, [form]);
 
   return (
-    <div className="container mx-auto flex gap-4">
+    <div className="container mx-auto mt-12 gap-4 bg-gray-100 dark:bg-slate-800 shadow-sm rounded-lg p-6 sm:flex sm:flex-col md:flex-row  w-[98vw] md:w-[70%]">
       <Inputs form={memoizedForm} handleChange={handleChange} />
       <Display form={memoizedForm} />
     </div>

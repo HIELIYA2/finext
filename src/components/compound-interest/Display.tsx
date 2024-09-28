@@ -188,10 +188,12 @@ const Display: React.FC<DisplayProps> = ({ form }) => {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 w-[70%]">
-      <div className="text-2xl">
-        After {form.yearsOfGrowth} years, your total balance is{" "}
-        <strong>${formattedFutureValue}</strong>
+    <div className="flex flex-col items-center justify-center p-4  w-[95vw] md:w-[70%]">
+      <div className="text-2xl flex-row">
+        <div>After {form.yearsOfGrowth} years, your total balance is </div>
+        <div className="flex justify-center">
+          <strong>${formattedFutureValue}</strong>
+        </div>
       </div>
       <div style={{ height: "400px", width: "100%" }}>
         <ReactECharts

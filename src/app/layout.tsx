@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Assistant } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
-import Footer from "@/components/footer";
 import Container from "@/components/container";
 
-const roboto = Roboto({
+const roboto = Assistant({
   subsets: ["latin"],
   weight: ["400", "700"],
   display: "swap",
@@ -24,12 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} bg-white text-black dark:bg-gray-900 dark:text-gray-400`}
+        className={`${roboto.className} text-gray-500 dark:bg-slate-900 dark:text-gray-300 bg-gray-50`}
       >
         <Container>
           <Header />
           {children}
-          <Footer />
         </Container>
       </body>
     </html>
